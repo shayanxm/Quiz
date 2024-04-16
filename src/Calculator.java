@@ -1,7 +1,9 @@
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Calculator {
     public static void main(String[] args) {
+
         int totalNumberOfRightGuess = 0;
         Scanner scanner = new Scanner(System.in);
         //inputs :
@@ -30,7 +32,7 @@ public class Calculator {
         System.out.println("now tell me how many questions you want to awnser ");
         int numberOfQuestions = scanner.nextInt();
 
-
+        String[] tableViewLikeResulat = new String[numberOfQuestions];
         int maxNumberInThisLevel;
         int minNumberInthisLevel;
         switch (inputedLearningLevel) {
@@ -59,6 +61,7 @@ public class Calculator {
                     "enter your guess");
             System.out.println("***your current status is " + totalNumberOfRightGuess + " correct out of " + numberOfQuestions + "questions ***");
 
+
             //input a resulalt from user
             double inputedResualtFromUser;
             try {
@@ -82,10 +85,18 @@ public class Calculator {
             //show true or false show correct awnser
             if (realResulatOfCalc == inputedResualtFromUser) {
                 System.out.println("congats you got it right. ");
+                tableViewLikeResulat[qustionsCounter - 1] = "** question number " + qustionsCounter + " was  : " + randomNum1 + " " + chosenOperator + " " + randomNum2 + " = " + realResulatOfCalc +
+                        " ,and you got the right awnser **" + "\n"
+                ;
                 totalNumberOfRightGuess++;
             } else {
                 System.out.println("you are rough kid right awnser is " + realResulatOfCalc);
+                tableViewLikeResulat[qustionsCounter - 1] = "** question number " + qustionsCounter + " was: " + randomNum1 + " " + chosenOperator + " " + randomNum2 + " = " + realResulatOfCalc +
+                        " ,but you entered " + inputedLearningLevel + " which is not right **" + "\n"
+                ;
             }
+
+
             qustionsCounter++;
         }
         //at the end show mean of correct awnsers
@@ -96,6 +107,8 @@ public class Calculator {
                 "\n rough awnsers : " + (numberOfQuestions - totalNumberOfRightGuess) +
                 "\nand you got total avreage of :" + meanOfCorrectAwnwsers
         );
+        System.out.println();
+        System.out.println(Arrays.toString(tableViewLikeResulat).substring(1, Arrays.toString(tableViewLikeResulat).length() - 1));
 
 
         //show questions and awnsers as resulalt
