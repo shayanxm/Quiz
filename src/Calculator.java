@@ -2,7 +2,7 @@ import java.util.Scanner;
 
 public class Calculator {
     public static void main(String[] args) {
-        int totalNumberOfRightGeuss = 0;
+        int totalNumberOfRightGuess = 0;
         Scanner scanner = new Scanner(System.in);
         //inputs :
         System.out.println("welcome to our calcualtion programm , first you should chosse between" +
@@ -34,64 +34,66 @@ public class Calculator {
         int maxNumberInThisLevel;
         int minNumberInthisLevel;
         switch (inputedLearningLevel) {
-            case 2:
+            case 2 -> {
                 minNumberInthisLevel = 10;
                 maxNumberInThisLevel = 99;
-                break;
-            case 3:
+            }
+            case 3 -> {
                 minNumberInthisLevel = 100;
                 maxNumberInThisLevel = 999;
-                break;
-            default:
+            }
+            default -> {
                 minNumberInthisLevel = 0;
                 maxNumberInThisLevel = 9;
+            }
         }
-
+        int qustionsCounter = 1;
         for (int remainingQues = numberOfQuestions; remainingQues > 0; remainingQues--) {
             //then generate 2 random numbers and show it
             int randomNum1 = (int) (Math.random() * (maxNumberInThisLevel - minNumberInthisLevel + 1)) + minNumberInthisLevel;
             int randomNum2 = (int) (Math.random() * (maxNumberInThisLevel - minNumberInthisLevel + 1)) + minNumberInthisLevel;
 
-            System.out.println(" so i generated your question, your questions is \n" +
-                    +randomNum1 + " " + chosenOperator + " " + randomNum2 + "\n" +
+            System.out.println("\n so i generated your question, your questions  number (" + qustionsCounter + " out of " + numberOfQuestions +
+                    " questions ),and it is \n" +
+                    randomNum1 + " " + chosenOperator + " " + randomNum2 + "\n" +
                     "enter your guess");
-            //input a resulalt from user
+            System.out.println("***your current status is " + totalNumberOfRightGuess + " correct out of " + numberOfQuestions + "questions ***");
 
-            double inputedResualtFromUser = scanner.nextDouble();
+            //input a resulalt from user
+            double inputedResualtFromUser;
+            try {
+                inputedResualtFromUser = scanner.nextDouble();
+
+            } catch (Exception e) {
+                inputedResualtFromUser = Double.parseDouble(scanner.nextLine());
+
+            }
+
 
             // and calculate res base on opreation and compare to users
             double realResulatOfCalc = 0;
             switch (chosenOperator) {
-                case '+':
-                    realResulatOfCalc = randomNum1 + randomNum2;
-                    break;
-                case '-':
-                    realResulatOfCalc = randomNum1 - randomNum2;
-                    break;
-                case '*':
-                    realResulatOfCalc = randomNum1 * randomNum2;
-                    break;
-                case '/':
-                    realResulatOfCalc = (double)randomNum1 / randomNum2;
-                    break;
-                default:
-                    System.out.println("some thing unexpected happend!!");
+                case '+' -> realResulatOfCalc = randomNum1 + randomNum2;
+                case '-' -> realResulatOfCalc = randomNum1 - randomNum2;
+                case '*' -> realResulatOfCalc = randomNum1 * randomNum2;
+                case '/' -> realResulatOfCalc = (double) randomNum1 / randomNum2;
+                default -> System.out.println("some thing unexpected happend!!");
             }
             //show true or false show correct awnser
             if (realResulatOfCalc == inputedResualtFromUser) {
                 System.out.println("congats you got it right. ");
-                totalNumberOfRightGeuss++;
+                totalNumberOfRightGuess++;
             } else {
                 System.out.println("you are rough kid right awnser is " + realResulatOfCalc);
             }
-
+            qustionsCounter++;
         }
         //at the end show mean of correct awnsers
         System.out.println(" total");
-        double meanOfCorrectAwnwsers = (double) totalNumberOfRightGeuss / numberOfQuestions;
+        double meanOfCorrectAwnwsers = (double) totalNumberOfRightGuess / numberOfQuestions;
         System.out.println("you awnsered " + numberOfQuestions + " Questions and you became this resualts" +
-                "\n right awnsers : " + totalNumberOfRightGeuss +
-                "\n rough awnsers : " + (numberOfQuestions - totalNumberOfRightGeuss) +
+                "\n right awnsers : " + totalNumberOfRightGuess +
+                "\n rough awnsers : " + (numberOfQuestions - totalNumberOfRightGuess) +
                 "\nand you got total avreage of :" + meanOfCorrectAwnwsers
         );
 
